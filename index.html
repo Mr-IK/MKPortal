@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icon.ico">
+    <title>Mr_IK(アイケー) ポータルサイト</title>
+    <style TYPE="text/css">
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+    
+        body #wrapper {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow: hidden;
+            position: fixed;
+            transform: rotateY( 180deg );
+        }
+    
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 80%;
+            opacity: 0;
+            transition: opacity 1s, transform 1s; /* フェードインと上からの移動のアニメーション */
+            transform: translateY(-50px); /* 初期状態では上に隠れている */
+        }
+
+        .container.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .infomation {
+            position: relative;
+            overflow: hidden;
+            flex-basis: 100%; /* 一行を占有するように追加 */
+            width: 32%;
+            margin: 1%;
+            cursor: pointer;
+            text-align: center;
+            transition: opacity 0.5s;
+            border-radius: 15px;
+            opacity: 0;
+            background-color: rgba(255, 255, 255, 0); /* 背景を半透明に変更 */
+            color: #fff; /* 文字色を白に変更 */
+        }
+
+        .infomation h1, .infomation p {
+            margin: 1.5vw;
+        }
+    
+        .box {
+            position: relative;
+            overflow: hidden;
+            width: 32%;
+            margin: 1%;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 1s;
+            border: 1.2px solid #cccccc;
+            border-radius: 15px;
+            opacity: 0;
+        }
+
+        .box:hover {
+            transform: translateY(-10px);
+            border-color: #FFFFFF;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+    
+        .box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    
+        .description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1%;
+            background-color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            max-height: 20%;
+            font-size: 1vw;
+        }
+    
+        .box:hover .description {
+            opacity: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .box {
+                width: 44%;
+            }
+
+            .box .description {
+                font-size: 2vw;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .box {
+                width: 44%;
+            }
+    
+            .box .description {
+                opacity: 1;
+                font-size: 2vw;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .box {
+                width: 64%;
+            }
+    
+            .box .description {
+                opacity: 1;
+                font-size: 3vw;
+            }
+        }
+    
+        @media (max-width: 400px) {
+            .box {
+                width: 100%;
+            }
+    
+            .box .description {
+                opacity: 1;
+                font-size: 3.5vw;
+            }
+        }
+
+        #flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0);
+            z-index: 9999;
+            pointer-events: none;
+            transition: background-color 1s;
+        }
+    </style>
+  </head>
+  <body style="margin: 0;" onload="document.body.style.opacity='1'; setTimeout(() => { document.querySelector('.container').classList.add('loaded'); document.querySelectorAll('.box').forEach(box => box.style.opacity = '1'); document.querySelectorAll('.infomation').forEach(info => info.style.opacity = '1'); }, 1000); for (s = window.screen, w = q.width = s.width, h = q.height = s.height, m = Math.random, p = [], i = 0; i < 256; p[i++] = 1); setInterval('9Style=\'rgba(0,0,0,.05)\'9Rect(0,0,w,h)9Style=\'#0F0\';p.map(function(v,i){9Text(String.fromCharCode(10240+m()*256),i*10,v);p[i]=v>758+m()*1e4?0:v+10})'.split(9).join(';q.getContext(\'2d\').fill'), 27)">
+    <div id="wrapper">
+      <canvas id="q"></canvas>
+    </div>
+    <div id="flash"></div>
+    <div class="container">
+        <div class="infomation">
+            <h1>
+                mrik.jp へようこそ
+            </h1>
+            <p>
+                Mr_IK(アイケー) のリンク集です。随時更新。(24/02/03)
+            </p>
+        </div>
+        <div class="box" onclick="navigateWithFlash('https://blog.mrik.jp')">
+            <img src="images/ikblog.svg" alt="IKのブログ">
+            <div class="description">
+                <p>日記やSSなどが読める個人サイト</p>
+            </div>
+        </div>
+        <div class="box" onclick="alert('準備中って言ってるでしょっ！')">
+            <img src="images/keepout.svg" alt="秘密なんだからっ">
+            <div class="description">
+                <p>準備中</p>
+            </div>
+        </div>
+        <div class="box" onclick="navigateWithFlash('https://blog.mrik.jp/profile')">
+            <img src="images/profile.svg" alt="Profile">
+            <div class="description">
+                <p>プロフィール・ポートフォリオ</p>
+            </div>
+        </div>
+        <div class="box" onclick="navigateWithFlash('https://blog.mrik.jp/contact/')">
+            <img src="images/contact.svg" alt="Contact">
+            <div class="description">
+                <p>お問い合わせ・ご相談はこちらから</p>
+            </div>
+        </div>
+        <div class="box" onclick="navigateWithFlash('https://twitter.com/Mr_IK2302')">
+            <img src="images/x-id.svg" alt="X(Twitter)">
+            <div class="description">
+                <p>アイケーのツイッター</p>
+            </div>
+        </div>
+        <div class="box" onclick="navigateWithFlash('https://github.com/Mr-IK')">
+            <img src="images/github-id.svg" alt="Github">
+            <div class="description">
+                <p>アイケーのGithub</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateWithFlash(url) {
+            document.getElementById('flash').style.backgroundColor = 'rgba(255, 255, 255, 1)';
+            setTimeout(() => {
+                window.location.href = url;
+            }, 500);
+        }
+    </script>
+  </body>
+</html>
