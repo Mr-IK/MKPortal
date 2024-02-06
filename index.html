@@ -90,7 +90,7 @@
             width: 32%;
             margin: 1%;
             cursor: pointer;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 1s;
+            transition: transform 0.1s, border-color 0.1s, box-shadow 0.1s, opacity 1s;
             border: 1.2px solid #cccccc;
             border-radius: 15px;
             opacity: 0;
@@ -121,7 +121,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.1s;
             max-height: 20%;
             font-size: 1vw;
         }
@@ -190,7 +190,30 @@
             background-color: rgba(255, 255, 255, 0);
             z-index: 9999;
             pointer-events: none;
-            transition: background-color 1s;
+            transition: background-color 0.5s;
+        }
+
+        .rainbow{
+            background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783,#e60000) 0 / 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 300%;
+            animation: 1s rainanime linear infinite;
+        }
+        @keyframes rainanime{
+            0% {
+                transform: scale(0.5, 2);
+            }
+            50% {
+                transform: scale(2, 0.5);
+            } 
+            100% {
+                transform: scale(0.5, 2);
+                background-position: 200%; 
+            }
         }
     </style>
   </head>
@@ -201,11 +224,11 @@
     <div id="flash"></div>
     <div class="container">
         <div class="infomation">
-            <h1>
+            <h1 id="title">
                 mrik.jp へようこそ
             </h1>
-            <p>
-                Mr_IK(アイケー) のリンク集です。随時更新。(24/02/04)
+            <p id="subtitle">
+                Mr_IK(アイケー) のリンク集です。随時更新。(24/02/06)
             </p>
         </div>
         <div class="box" onclick="navigateWithFlash('https://blog.mrik.jp')">
@@ -247,11 +270,42 @@
     </div>
 
     <script>
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                document.getElementById('flash').style.backgroundColor = 'rgba(255, 255, 255, 0)';
+            }
+        };
+
+        var kakushiCommand = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        var inputCommand = [];
+        var isRainbow = false;
+        document.onkeydown = function(e) {
+            inputCommand.push(e.keyCode);
+            var inputCommandLen = inputCommand.length;
+            var inputCode = inputCommand[inputCommandLen - 1];
+            var commandCode = kakushiCommand[inputCommandLen - 1];
+            if (inputCode === commandCode) {
+                if (inputCommandLen === kakushiCommand.length) {
+                    if(isRainbow){
+                        document.getElementById('title').classList.remove('rainbow');
+                        document.getElementById('subtitle').classList.remove('rainbow');
+                    } else {
+                        document.getElementById('title').classList.add('rainbow');
+                        document.getElementById('subtitle').classList.add('rainbow');
+                    }
+                    isRainbow = !isRainbow;
+                    inputCommand.length = 0;
+                }
+            } else {
+                inputCommand.length = 0;
+            }
+        }
+
         function navigateWithFlash(url) {
             document.getElementById('flash').style.backgroundColor = 'rgba(255, 255, 255, 1)';
             setTimeout(() => {
                 window.location.href = url;
-            }, 500);
+            }, 300);
         }
     </script>
   </body>
