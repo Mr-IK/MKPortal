@@ -90,7 +90,7 @@
             width: 32%;
             margin: 1%;
             cursor: pointer;
-            transition: transform 0.1s, border-color 0.1s, box-shadow 0.1s, opacity 1s;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s, opacity 1s;
             border: 1.2px solid #cccccc;
             border-radius: 15px;
             opacity: 0;
@@ -121,7 +121,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.1s;
+            transition: opacity 0.2s;
             max-height: 20%;
             font-size: 1vw;
         }
@@ -217,6 +217,10 @@
         }
     </style>
   </head>
+  <!--
+    こんなところをのぞくなんて キミは物好きだねぇ〜
+    ヒミツのコマンドは スクリプトを見れば わかると思うよぉ〜？
+  -->
   <body style="margin: 0;" onload="document.body.style.opacity='1'; setTimeout(() => { document.querySelector('.container').classList.add('loaded'); document.querySelectorAll('.box').forEach(box => box.style.opacity = '1'); document.querySelectorAll('.infomation').forEach(info => info.style.opacity = '1'); }, 1000); for (s = window.screen, w = q.width = s.width, h = q.height = s.height, m = Math.random, p = [], i = 0; i < 256; p[i++] = 1); setInterval('9Style=\'rgba(0,0,0,.05)\'9Rect(0,0,w,h)9Style=\'#0F0\';p.map(function(v,i){9Text(String.fromCharCode(10240+m()*256),i*10,v);p[i]=v>758+m()*1e4?0:v+10})'.split(9).join(';q.getContext(\'2d\').fill'), 27)">
     <div id="wrapper">
       <canvas id="q"></canvas>
@@ -228,7 +232,7 @@
                 mrik.jp へようこそ
             </h1>
             <p id="subtitle">
-                Mr_IK(アイケー) のリンク集です。随時更新。(24/02/06)
+                Mr_IK(アイケー) のリンク集です。随時更新。(24/02/11)
             </p>
         </div>
         <div class="box" onclick="navigateWithFlash('https://blog.mrik.jp')">
