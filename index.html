@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/icon.ico">
     <title>Mr_IK(アイケー) ポータルサイト</title>
     <style TYPE="text/css">
+        /*
+    こんなところをのぞくなんて キミは物好きだねぇ〜
+    ヒミツのコマンドは スクリプトを見れば わかると思うよぉ〜？
+        */
         body {
             width: 100vw;
             width: 100dvw;
@@ -24,7 +29,7 @@
             transition: opacity 1s;
             background-color: #000000;
         }
-    
+
         body #wrapper {
             width: 100%;
             min-width: 100%;
@@ -36,7 +41,7 @@
             position: absolute;
             top: 0px;
             left: 0px;
-            transform: rotateY( 180deg );
+            transform: rotateY(180deg);
         }
 
         canvas {
@@ -47,7 +52,7 @@
             left: 0px;
             overflow-clip-margin: 1px;
         }
-    
+
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -56,8 +61,10 @@
             margin: 0;
             padding: 0;
             opacity: 0;
-            transition: opacity 1s, transform 1s; /* フェードインと上からの移動のアニメーション */
-            transform: translateY(-50px); /* 初期状態では上に隠れている */
+            transition: opacity 1s, transform 1s;
+            /* フェードインと上からの移動のアニメーション */
+            transform: translateY(-50px);
+            /* 初期状態では上に隠れている */
         }
 
         .container.loaded {
@@ -68,7 +75,8 @@
         .infomation {
             position: relative;
             overflow: hidden;
-            flex-basis: 100%; /* 一行を占有するように追加 */
+            flex-basis: 100%;
+            /* 一行を占有するように追加 */
             width: 32%;
             margin: 1%;
             cursor: pointer;
@@ -76,14 +84,17 @@
             transition: opacity 0.5s;
             border-radius: 15px;
             opacity: 0;
-            background-color: rgba(255, 255, 255, 0); /* 背景を半透明に変更 */
-            color: #fff; /* 文字色を白に変更 */
+            background-color: rgba(255, 255, 255, 0);
+            /* 背景を半透明に変更 */
+            color: #fff;
+            /* 文字色を白に変更 */
         }
 
-        .infomation h1, .infomation p {
+        .infomation h1,
+        .infomation p {
             margin: 1.5vw;
         }
-    
+
         .box {
             position: relative;
             overflow: hidden;
@@ -101,13 +112,13 @@
             border-color: #FFFFFF;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
-    
+
         .box img {
             width: 100%;
             height: auto;
             display: block;
         }
-    
+
         .description {
             position: absolute;
             bottom: 0;
@@ -125,7 +136,7 @@
             max-height: 20%;
             font-size: 1vw;
         }
-    
+
         .box:hover .description {
             opacity: 1;
         }
@@ -139,7 +150,8 @@
                 font-size: 2vw;
             }
 
-            .infomation h1, .infomation p {
+            .infomation h1,
+            .infomation p {
                 margin: 1vw;
             }
         }
@@ -151,11 +163,14 @@
             }
 
             .box:hover {
-                transform: none; /* hover時の変更を無効化 */
-                border-color: #cccccc; /* デフォルトのボーダーカラーに変更 */
-                box-shadow: none; /* デフォルトのボックスシャドウに変更 */
+                transform: none;
+                /* hover時の変更を無効化 */
+                border-color: #cccccc;
+                /* デフォルトのボーダーカラーに変更 */
+                box-shadow: none;
+                /* デフォルトのボックスシャドウに変更 */
             }
-    
+
             .box .description {
                 opacity: 1;
             }
@@ -165,17 +180,17 @@
             .box {
                 width: 55%;
             }
-    
+
             .box .description {
                 font-size: 3vw;
             }
         }
-    
+
         @media (max-width: 400px) {
             .box {
                 width: 70%;
             }
-    
+
             .box .description {
                 font-size: 3.5vw;
             }
@@ -193,8 +208,8 @@
             transition: background-color 0.5s;
         }
 
-        .rainbow{
-            background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783,#e60000) 0 / 200%;
+        .rainbow {
+            background: linear-gradient(to right, #e60000, #f39800, #fff100, #009944, #0068b7, #1d2088, #920783, #e60000) 0 / 200%;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -203,36 +218,101 @@
             font-size: 300%;
             animation: 1s rainanime linear infinite;
         }
-        @keyframes rainanime{
+
+        @keyframes rainanime {
             0% {
                 transform: scale(0.5, 2);
             }
+
             50% {
                 transform: scale(2, 0.5);
-            } 
+            }
+
             100% {
                 transform: scale(0.5, 2);
-                background-position: 200%; 
+                background-position: 200%;
             }
         }
+
+        #container.bunbun .box {
+            animation-duration: 5s;
+            /* アニメーションにかかる時間を指定 */
+            animation-timing-function: linear;
+            /* アニメーションの進行の度合いを指定。linearで開始から終了までを一定に変化(滑らかなアニメーションになる)するよう指定 */
+            animation-direction: normal;
+            /* アニメーションの再生方向を指定。normalでアニメーションが同じ方向に繰り返す */
+            animation-iteration-count: infinite;
+            animation-name: Bunbun;
+        }
+
+        @keyframes Bunbun {
+            0% {
+                transform: rotate3d(1, 1, 1, 0deg);
+                /* rotate3dでXYZ軸(立体)の回転角度を指定 */
+            }
+
+            12.5% {
+                transform: rotate3d(1, 1, 1, 90deg);
+                /* rotate3dでXYZ軸(立体)の回転角度を指定 */
+            }
+
+            25% {
+                transform: rotate3d(1, 1, 1, 180deg);
+                /* rotate3dでXYZ軸(立体)の回転角度を指定 */
+            }
+
+            37.5% {
+                transform: rotate3d(1, 1, 1, 270deg);
+                /* rotate3dでXYZ軸(立体)の回転角度を指定 */
+            }
+
+            50% {
+                border-width: 0px;
+                transform: rotate3d(1, 1, 1, 360deg);
+                /* rotate3dでXYZ軸(立体)の回転角度を指定 */
+            }
+
+            62.5% {
+                transform: rotate3d(1, 1, 1, 450deg);
+                /* rotate3dでXYZ軸(立体)の回転角度を指定 */
+            }
+
+            75% {
+                transform: rotate3d(1, 1, 1, 540deg);
+                /* rotate3dでXYZ軸(立体)の回転角度を指定 */
+            }
+
+            87.5% {
+                border-width: 75px;
+                transform: rotate3d(1, 1, 1, 630deg);
+                /* rotate3dでXYZ軸(立体)の回転角度を指定 */
+            }
+
+            100% {
+                transform: rotate3d(1, 1, 1, 720deg);
+                /* rotate3dでXYZ軸(立体)の回転角度を指定 */
+            }
+        }
+
+        .hanten {
+            transform: scale(1, -1);
+        }
     </style>
-  </head>
-  <!--
-    こんなところをのぞくなんて キミは物好きだねぇ〜
-    ヒミツのコマンドは スクリプトを見れば わかると思うよぉ〜？
-  -->
-  <body style="margin: 0;" onload="document.body.style.opacity='1'; setTimeout(() => { document.querySelector('.container').classList.add('loaded'); document.querySelectorAll('.box').forEach(box => box.style.opacity = '1'); document.querySelectorAll('.infomation').forEach(info => info.style.opacity = '1'); }, 1000); for (s = window.screen, w = q.width = s.width, h = q.height = s.height, m = Math.random, p = [], i = 0; i < 256; p[i++] = 1); setInterval('9Style=\'rgba(0,0,0,.05)\'9Rect(0,0,w,h)9Style=\'#0F0\';p.map(function(v,i){9Text(String.fromCharCode(10240+m()*256),i*10,v);p[i]=v>758+m()*1e4?0:v+10})'.split(9).join(';q.getContext(\'2d\').fill'), 27)">
+</head>
+
+<body style="margin: 0;"
+    onload="document.body.style.opacity='1'; setTimeout(() => { document.querySelector('.container').classList.add('loaded'); document.querySelectorAll('.box').forEach(box => box.style.opacity = '1'); document.querySelectorAll('.infomation').forEach(info => info.style.opacity = '1'); }, 1000); for (s = window.screen, w = q.width = s.width, h = q.height = s.height, m = Math.random, p = [], i = 0; i < 256; p[i++] = 1); setInterval('9Style=\'rgba(0,0,0,.05)\'9Rect(0,0,w,h)9Style=\'#0F0\';p.map(function(v,i){9Text(String.fromCharCode(10240+m()*256),i*10,v);p[i]=v>758+m()*1e4?0:v+10})'.split(9).join(';q.getContext(\'2d\').fill'), 27)">
     <div id="wrapper">
-      <canvas id="q"></canvas>
+        <canvas id="q"></canvas>
     </div>
     <div id="flash"></div>
-    <div class="container">
+    <div id="container" class="container">
         <div class="infomation">
             <h1 id="title">
                 mrik.jp へようこそ
             </h1>
             <p id="subtitle">
-                Mr_IK(アイケー) のリンク集です。随時更新。(24/02/11)
+                Mr_IK(アイケー) のリンク集です。随時更新。(24/04/01)
             </p>
         </div>
         <div class="box" onclick="navigateWithFlash('https://blog.mrik.jp')">
@@ -274,7 +354,7 @@
     </div>
 
     <script>
-        window.onpageshow = function(event) {
+        window.onpageshow = function (event) {
             if (event.persisted) {
                 document.getElementById('flash').style.backgroundColor = 'rgba(255, 255, 255, 0)';
             }
@@ -283,19 +363,23 @@
         var kakushiCommand = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
         var inputCommand = [];
         var isRainbow = false;
-        document.onkeydown = function(e) {
+        document.onkeydown = function (e) {
             inputCommand.push(e.keyCode);
             var inputCommandLen = inputCommand.length;
             var inputCode = inputCommand[inputCommandLen - 1];
             var commandCode = kakushiCommand[inputCommandLen - 1];
             if (inputCode === commandCode) {
                 if (inputCommandLen === kakushiCommand.length) {
-                    if(isRainbow){
+                    if (isRainbow) {
                         document.getElementById('title').classList.remove('rainbow');
                         document.getElementById('subtitle').classList.remove('rainbow');
+                        document.getElementById('container').classList.remove('bunbun');
+                        document.getElementById('q').classList.remove('hanten');
                     } else {
                         document.getElementById('title').classList.add('rainbow');
                         document.getElementById('subtitle').classList.add('rainbow');
+                        document.getElementById('container').classList.add('bunbun');
+                        document.getElementById('q').classList.add('hanten');
                     }
                     isRainbow = !isRainbow;
                     inputCommand.length = 0;
@@ -311,6 +395,13 @@
                 window.location.href = url;
             }, 300);
         }
+
+        // あとでけす
+        document.getElementById('title').classList.add('rainbow');
+        document.getElementById('subtitle').classList.add('rainbow');
+        document.getElementById('container').classList.add('bunbun');
+        document.getElementById('q').classList.add('hanten');
     </script>
-  </body>
+</body>
+
 </html>
