@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="ja">
+<!-- 
+    こんなところをのぞくなんて キミは物好きだねぇ〜
+    ヒミツのコマンドは スクリプトを見れば わかると思うよぉ〜？
+-->
 
 <head>
+    <!-- 4/1終了で消す
+    <meta http-equiv="refresh" content="0;URL=https://mrik.jp/april2025/">
+    -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/icon.ico">
     <title>Mr_IK(アイケー) ポータルサイト</title>
     <style TYPE="text/css">
-        /*
-    こんなところをのぞくなんて キミは物好きだねぇ〜
-    ヒミツのコマンドは スクリプトを見れば わかると思うよぉ〜？
-        */
         body {
             width: 100vw;
             width: 100dvw;
@@ -312,7 +315,7 @@
                 mrik.jp へようこそ
             </h1>
             <p id="subtitle">
-                Mr_IK(アイケー) のリンク集です。随時更新。(24/04/02)
+                Mr_IK(アイケー) のリンク集です。随時更新。(25/03/31)
             </p>
         </div>
         <div class="box" onclick="navigateWithFlash('https://blog.mrik.jp')">
@@ -321,10 +324,10 @@
                 <p>日記やSSなどが読める個人サイト</p>
             </div>
         </div>
-        <div class="box" onclick="alert('準備中って言ってるでしょっ！')">
-            <img src="images/keepout.svg" alt="秘密なんだからっ">
+        <div class="box" onclick="navigateWithFlash('https://maskamuse.com')">
+            <img src="images/maskamuse.svg" alt="マスカミューズ">
             <div class="description">
-                <p>準備中</p>
+                <p>エンタメ制作チーム マスカミューズ</p>
             </div>
         </div>
         <div class="box" onclick="navigateWithFlash('https://blog.mrik.jp/profile')">
@@ -360,32 +363,54 @@
             }
         };
 
-        var kakushiCommand = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        var commands = {
+            "konami": [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
+            "april2025": [65, 80, 82, 73, 76, 50, 48, 50, 53]
+        };
+
         var inputCommand = [];
         var isRainbow = false;
+
         document.onkeydown = function (e) {
             inputCommand.push(e.keyCode);
-            var inputCommandLen = inputCommand.length;
-            var inputCode = inputCommand[inputCommandLen - 1];
-            var commandCode = kakushiCommand[inputCommandLen - 1];
-            if (inputCode === commandCode) {
-                if (inputCommandLen === kakushiCommand.length) {
-                    if (isRainbow) {
-                        document.getElementById('title').classList.remove('rainbow');
-                        document.getElementById('subtitle').classList.remove('rainbow');
-                        document.getElementById('container').classList.remove('bunbun');
-                        document.getElementById('q').classList.remove('hanten');
-                    } else {
-                        document.getElementById('title').classList.add('rainbow');
-                        document.getElementById('subtitle').classList.add('rainbow');
-                        document.getElementById('container').classList.add('bunbun');
-                        document.getElementById('q').classList.add('hanten');
-                    }
-                    isRainbow = !isRainbow;
-                    inputCommand.length = 0;
+
+            for (let key in commands) {
+                let command = commands[key];
+                let inputLen = inputCommand.length;
+
+                if (inputLen > command.length) {
+                    inputCommand.shift();
                 }
-            } else {
-                inputCommand.length = 0;
+
+                if (arraysEqual(inputCommand, command)) {
+                    executeCommand(key);
+                    inputCommand.length = 0;
+                    return;
+                }
+            }
+        };
+
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            return a.every((val, index) => val === b[index]);
+        }
+
+        function executeCommand(commandName) {
+            if (commandName === "konami") {
+                if (isRainbow) {
+                    document.getElementById('title').classList.remove('rainbow');
+                    document.getElementById('subtitle').classList.remove('rainbow');
+                    document.getElementById('container').classList.remove('bunbun');
+                    document.getElementById('q').classList.remove('hanten');
+                } else {
+                    document.getElementById('title').classList.add('rainbow');
+                    document.getElementById('subtitle').classList.add('rainbow');
+                    document.getElementById('container').classList.add('bunbun');
+                    document.getElementById('q').classList.add('hanten');
+                }
+                isRainbow = !isRainbow;
+            } else if (commandName === "april2025") {
+                navigateWithFlash('https://mrik.jp/april2025/');
             }
         }
 
